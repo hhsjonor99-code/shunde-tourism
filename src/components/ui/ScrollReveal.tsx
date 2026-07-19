@@ -59,6 +59,7 @@ export function ScrollReveal({
   }, []);
 
   // IntersectionObserver：不可用时直接显示内容
+  // 兜底：1.5s 后仍未触发则强制显示（避免 IntersectionObserver 不稳定或元素不在视口时永久隐藏）
   useEffect(() => {
     if (reducedMotion) {
       // 减少动效：直接显示
@@ -73,12 +74,18 @@ export function ScrollReveal({
     const node = ref.current;
     if (!node) return;
 
+    // 兜底 timeout：避免永久隐藏
+    const fallback = window.setTimeout(() => {
+      setVisible((v) => v || true);
+    }, 1500);
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
             setVisible(true);
             if (once) observer.disconnect();
+            window.clearTimeout(fallback);
           } else if (!once) {
             setVisible(false);
           }
@@ -88,7 +95,10 @@ export function ScrollReveal({
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, [threshold, once, reducedMotion]);
 
   const offset =

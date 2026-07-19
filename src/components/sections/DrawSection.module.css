@@ -283,7 +283,7 @@
 /* ===== 结果区 ===== */
 
 .result {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 96px;
 }
 
 @media (max-width: 640px) {

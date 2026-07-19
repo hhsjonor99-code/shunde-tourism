@@ -33,6 +33,8 @@ export function ItineraryResult({ result, onReset }: ItineraryResultProps) {
       className={styles.result}
       role="region"
       aria-label="推荐结果"
+      aria-live="polite"
+      aria-atomic="false"
     >
       <header className={styles.head}>
         <div className={styles.headLeft}>

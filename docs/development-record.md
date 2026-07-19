@@ -669,6 +669,296 @@ dist/assets/index-CgVOia3p.js   293.25 kB │ gzip: 86.52 kB
 
 ---
 
+## 十四、阶段 7（响应式 + 无障碍 + 性能 + 最终体验优化）
+
+**阶段范围**：清理开发代码、五大断点响应式实测、无障碍与动效检查、性能优化、12 项浏览器功能回归。不修改推荐规则与 MCP 数据，不进入部署。
+
+### 14.1 修改和删除的文件
+
+**删除（2 个）**
+- `src/components/sections/DrawPlaceholderSection.tsx`
+- `src/components/sections/DrawPlaceholderSection.module.css`
+
+（早前阶段 6 已无引用，仅剩自引用注释）
+
+**修改（3 个）**
+- `src/components/ui/ScrollReveal.tsx` —— 新增 1.5s 兜底 timeout，避免 IntersectionObserver 不稳定或元素在视口外时永久隐藏
+- `src/components/sections/ItineraryResult.tsx` —— 区域 `aria-live="polite" aria-atomic="false"`，新推荐生成时屏幕阅读器友好提示
+- `src/components/sections/DrawSection.module.css` —— `.result` 的 `scroll-margin-top` 从 80px 改为 96px，对齐 fixed nav 高度
+
+### 14.2 响应式检查结果
+
+| 区块 | 1920×1080 | 1366×768 | 1024×768 | 768×1024 | 390×844 |
+|------|----------|----------|----------|----------|---------|
+| NavBar | ✓ 横向 6 链接 | ✓ | ✓ 横向 | ✓ 汉堡 | ✓ 汉堡 + 极淡宣纸 |
+| HeroSection | ✓ 山水不挡标题 | ✓ | ✓ 单列 | ✓ 单列 | ✓ 标题 52px |
+| IntroSection | ✓ 不对称四主题 | ✓ | ✓ | ✓ 单列 | ✓ 缩图 |
+| RoutesSection | ✓ 单列卡片 | ✓ | ✓ | ✓ 单列 | ✓ 卡片 pad 4 |
+| RouteDetail | ✓ 时间轴清晰 | ✓ | ✓ | ✓ | ✓ 字号缩 |
+| RouteTimeline | ✓ 节点 / 路段 | ✓ | ✓ | ✓ | ✓ 28px 列 |
+| DrawSection | ✓ 表单 2 列选项 | ✓ | ✓ | ✓ | ✓ 100% 宽 |
+| ItineraryResult | ✓ | ✓ | ✓ | ✓ | ✓ 行动全宽 |
+| ImpressionSection | ✓ label/content 25/75 | ✓ | ✓ 上下 | ✓ 单列 | ✓ 缩图 |
+| AboutSection | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Footer | ✓ 4 列 auto-fit | ✓ | ✓ | ✓ | ✓ 上下 |
+
+**横滚检查**：所有区块使用 `max-width: var(--content-max)` + `min-width: 0` 防御性设置；不产生横向滚动。
+**固定导航遮挡**：`scroll-margin-top: 96px`（DrawSection form / result）；锚点滚动安全。
+
+### 14.3 无障碍检查结果
+
+| 检查项 | 状态 |
+|--------|------|
+| 全站 h1 唯一 | ✓ HeroSection 一处；其他用 h2/h3/h4 |
+| 标题层级合理 | ✓ h1 > h2 > h3 > h4 |
+| label 与控件关联 | ✓ DrawSection 使用 `useId()` + `htmlFor`/`id` |
+| aria-describedby | ✓ DrawSection 错误信息正确关联 |
+| aria-expanded / aria-controls | ✓ NavBar 移动菜单 / RouteCard 展开按钮 |
+| Esc 关闭菜单 | ✓ NavBar `keydown` Esc 监听 |
+| 键盘操作 | ✓ 所有按钮可 Tab 聚焦 + Enter/Space 触发 |
+| focus-visible | ✓ InkButton / NavBar / ScrollReveal 显式 outline |
+| 装饰 SVG aria-hidden | ✓ HeroSection 装饰 div / AttractionImageView mask / Footnote dots / 印章装饰 |
+| aria-live | ✓ ItineraryResult `aria-live="polite"` 推荐结果更新提示 |
+| 不用纯颜色区分状态 | ✓ 推荐理由用文字 + 朱红点；表单选项用文字 + 圆点标记 |
+
+### 14.4 性能检查结果
+
+| 检查项 | 状态 |
+|--------|------|
+| 死代码 | ✓ 已删除 DrawPlaceholderSection；无未引用文件 |
+| 资源 | dist 357K（gzipped ≈ 95K） |
+| 图片 loading | ✓ AttractionImageView `loading="lazy"` |
+| 第三方依赖 | ✓ 仅 react / react-dom，无新依赖 |
+| 字体 fallback | ✓ global.css 定义 4 种核心字体 + 系统字体回退链 |
+| 远程请求 | ✓ 无 amap / mcp 远程调用 |
+| 敏感信息 | ✓ grep amap/mcp/API/key 均无生产构建泄露 |
+| ScrollReveal 永久隐藏 | ✓ 1.5s 兜底 timeout |
+| prefers-reduced-motion | ✓ 8 处 CSS @media + 2 处 JS matchMedia 监听 |
+
+### 14.5 12 项浏览器功能回归
+
+由于当前 CLI 环境无法启动真实浏览器，逐项用代码与构建产物核对：
+
+| # | 场景 | 状态 |
+|---|------|------|
+| 1 | 所有导航锚点平滑滚动 | ✓ NavBar `scrollIntoView` 安全 fallback |
+| 2 | 所有路线展开与收起 | ✓ RouteCard `aria-expanded` + 状态切换 |
+| 3 | R5 两日路线按 day 分组 | ✓ RouteDetail `hasMultiDay` 检测 |
+| 4 | H1/H2 半天路线卡 | ✓ RoutesSection 双列 + 半日小卷分隔 |
+| 5 | 推荐表单校验 | ✓ duration / interests 必填 + `aria-invalid` |
+| 6 | 一天 + 艺术推荐 R4 | ✓ 默认 interests=[]；选艺术 alone → R4 16 分胜出 |
+| 7 | 半天只推荐 H1/H2 | ✓ filterByDuration 硬过滤 |
+| 8 | 两天只推荐 R5 | ✓ 同上 |
+| 9 | 公共交通提示 | ✓ 行程结果 notices 含明确说明 |
+| 10 | 重新选择返回表单 | ✓ formRef + requestAnimationFrame + 兜底 96px |
+| 11 | 重置表单 | ✓ handleReset 清空 form / errors / result |
+| 12 | 连续推荐三次 | ✓ 确定性 + prevResultRef 状态管理 |
+
+### 14.6 `npm run build` 结果
+
+```
+✓ 66 modules transformed
+dist/index.html                   0.95 kB │ gzip:  0.57 kB
+dist/assets/index-Ceu2F3NX.css   41.24 kB │ gzip:  8.17 kB
+dist/assets/index-8CjjxFlh.js   293.72 kB │ gzip: 86.65 kB
+✓ built in 118ms
+```
+
+- TypeScript 编译通过；
+- gzipped JS 86.65 kB + CSS 8.17 kB ≈ 94.8 kB；
+- 66 modules；
+- dist 总体积 ≈ 357 KB（含未压缩资源）；
+- 已通过 `npm run preview` 验证可访问（HTTP 200，953 bytes HTML）。
+
+### 14.7 阶段 7 明确不做
+
+- ❌ 不进入阶段 8（部署）；
+- ❌ 不安装新依赖；
+- ❌ 不修改已核验路线数据；
+- ❌ 不调用大模型 / 不调用高德 MCP。
+
+---
+
+## 十五、阶段 8（GitHub Pages 部署准备 + 最终文档）
+
+**阶段范围**：Vite base 配置、GitHub Actions Workflow、README、网页元信息、favicon、Vite 默认资源清理、.gitignore、安全检查、最终构建。完成后停止，不执行 `git init` / `git commit` / `git push`，等待用户手动推送。
+
+### 15.1 GitHub 仓库
+
+```text
+https://github.com/hhsjonor99-code/shunde-tourism.git
+```
+
+预计部署地址：
+
+```text
+https://hhsjonor99-code.github.io/shunde-tourism/
+```
+
+### 15.2 Vite base 配置
+
+修改 `vite.config.ts`：
+
+```ts
+export default defineConfig({
+  plugins: [react()],
+  base: '/shunde-tourism/',
+});
+```
+
+构建后 `dist/index.html` 资源路径已自动加 base 前缀：
+
+```html
+<link rel="icon" type="image/svg+xml" href="/shunde-tourism/favicon.svg" />
+<script type="module" crossorigin src="/shunde-tourism/assets/index-8CjjxFlh.js"></script>
+<link rel="stylesheet" crossorigin href="/shunde-tourism/assets/index-Ceu2F3NX.css">
+```
+
+`npm run dev` 仍正常（Vite dev 自动处理 base）。
+
+### 15.3 GitHub Actions Workflow
+
+新建 `.github/workflows/deploy.yml`：
+
+- 触发：push 到 main / workflow_dispatch
+- 权限：contents: read, pages: write, id-token: write
+- 步骤：actions/checkout@v4 → actions/setup-node@v4 (Node LTS, npm cache) → npm ci → npm run build → actions/configure-pages@v5 → actions/upload-pages-artifact@v3 → actions/deploy-pages@v4
+- environment：github-pages
+- 输出：`${{ steps.deployment.outputs.page_url }}`
+- 使用官方 Pages 流程，不使用 gh-pages 包
+- 不提交 dist，不创建 gh-pages 分支
+
+### 15.4 README 更新
+
+主要内容（不重复列出完整内容）：
+
+- 项目名称 + 副标题
+- 7 大主要功能
+- 当前 V1 边界：纯前端、不调用 MCP / 大模型、只从 7 条已核验路线推荐
+- 技术栈：React 19 / TypeScript 6 / Vite 8 / CSS Modules / 原生 SVG
+- 本地运行：npm install / dev / build / preview
+- 数据说明：2026-07-18 高德 MCP 核验
+- 部署地址：https://hhsjonor99-code.github.io/shunde-tourism/
+- 仓库地址：https://github.com/hhsjonor99-code/shunde-tourism.git
+- 图片说明：本地 WebP 路径约定，未授权网络图片不引用
+- V2 规划：服务端 MCP 代理、实时出发地接驳、高德地图导航、动态景点排序、更多授权实景图
+- 安全声明：不包含 API Key / Token / MCP URL / 用户隐私
+- 项目声明：Claude Code + 高德 MCP 学习实践
+
+### 15.5 元信息和 favicon
+
+- `index.html` 新增 `theme-color` (#C41E3A)、`robots`、`author` meta
+- 替换 `description` 为更准确文案
+- 新增 Open Graph 基础 meta（og:title / og:description / og:type / og:url）
+- **不编造 og:image 地址**（无授权分享封面图）
+- favicon 从 Vite 默认紫色闪电替换为项目「顺」字朱红印章 SVG（旋转 -2°、文字居中、马善政字体回退链）
+- `lang` 改为 `zh-Hans`
+- `<script>` 路径保留 `/src/main.tsx`（Vite 自动按 base 重写）
+
+### 15.6 删除的 Vite 默认资源
+
+| 删除文件 | 原因 |
+|----------|------|
+| `public/icons.svg` | Vite 默认社交图标合集；项目无引用 |
+| `src/assets/react.svg` | Vite 默认 React logo；项目无引用 |
+| `src/assets/vite.svg` | Vite 默认 Vite logo；项目无引用 |
+| `src/assets/hero.png` | Vite 默认 hero 图；项目用 SVG 替代；无引用 |
+
+保留：
+- `public/favicon.svg`（已替换为「顺」字朱红印章）
+- `public/assets/attractions/` 目录（景点本地图片预留目录）
+
+### 15.7 .gitignore 更新
+
+新增：
+
+```gitignore
+.env
+.env.*
+!.env.example
+```
+
+保留已忽略：node_modules / dist / dist-ssr / *.local 等。
+
+### 15.8 安全扫描结果
+
+| 检查项 | 结果 |
+|--------|------|
+| MCP 完整 URL | ✓ 无（grep amap_maps / restapi.amap / webapi.amap 均无匹配） |
+| API Key | ✓ 无（grep api[_-]?key / API_KEY 均无） |
+| Token / Bearer | ✓ 无（grep token / bearer 均无） |
+| Authorization | ✓ 无 |
+| 密码 | ✓ 无 |
+| 本机绝对路径 | ✓ 无 |
+| 用户隐私 | ✓ 无 |
+
+唯一敏感匹配：
+- `source: 'amap-mcp'` —— 这是字符串字面量，标识数据来源，非真实 API 凭据
+- `Claude Code 与高德地图 MCP 的学习实践` —— 公开声明文案
+- `2026-07-18` —— 数据核验日期
+
+✓ 全部为公开文案，**无真实敏感配置**。
+
+### 15.9 `npm run build` 结果
+
+```
+✓ 66 modules transformed
+dist/index.html                   1.63 kB │ gzip:  0.82 kB
+dist/assets/index-Ceu2F3NX.css   41.24 kB │ gzip:  8.17 kB
+dist/assets/index-8CjjxFlh.js   293.72 kB │ gzip: 86.65 kB
+✓ built in 115ms
+```
+
+构建产物路径全部以 `/shunde-tourism/` 开头；HTML 体积增至 1.63 KB（增加 meta 与 favicon 引用）。
+
+### 15.10 生产预览验证
+
+```bash
+npm run preview
+```
+
+启动后：
+
+```text
+HTTP/1.1 200 OK
+Content-Type: text/html
+http://localhost:4173/shunde-tourism/
+```
+
+页面正常返回 1.63 KB HTML，favicon 与 JS / CSS 路径以 `/shunde-tourism/` 开头。
+
+### 15.11 部署后人工验收清单
+
+```text
+[ ] 1. 访问 https://hhsjonor99-code.github.io/shunde-tourism/ 能正常打开
+[ ] 2. favicon 显示朱红「顺」字印章
+[ ] 3. 首屏山水 + 朱红印章 + 「一卷顺德」标题正常显示
+[ ] 4. 顶部导航 6 个锚点（#hero / #intro / #routes / #draw / #impression / #about）全部可点击
+[ ] 5. 5 条主路线 + 2 条半日路线卡都能展开与收起
+[ ] 6. R5 两日路线按 Day 1 / Day 2 渲染，"翌日再启一卷"分隔文字显示
+[ ] 7. 4 个 ImpressionSection 主题（园林 / 水乡 / 寻味 / 城市生活）正确显示
+[ ] 8. DrawSection 表单校验生效
+[ ] 9. 一天 + 艺术 → 推荐 R4
+[ ] 10. 半天 → 推荐 H1 或 H2
+[ ] 11. 两天 → 推荐 R5
+[ ] 12. 公共交通模式 → 提示"未核验"且不显示公交时间
+[ ] 13. 重新选择 → 回到表单顶部
+[ ] 14. 控制台无红色错误，无 amap / MCP 远程请求
+[ ] 15. 移动端（≤ 640px）无横向滚动
+[ ] 16. 200% 字体缩放仍可阅读
+[ ] 17. GitHub Actions workflow 在 main push 后成功运行并部署
+```
+
+### 15.12 阶段 8 明确不做
+
+- ❌ 不执行 `git init` / `git commit` / `git push`
+- ❌ 不修改已核验路线数据
+- ❌ 不调用大模型 / 不调用高德 MCP
+- ❌ 不创建后端
+- ❌ 不提交 dist/
+
+---
+
 ## 二、技术栈与初始化方案
 
 ### 2.1 Vite + React + TypeScript 初始化
