@@ -98,6 +98,24 @@
 
 项目未引入 UI 组件库、动画库、表单库或测试框架。
 
+## 项目使用的工具
+
+| 工具 | 用途 | 网址 |
+|---|---|---|
+| 高德开放平台控制台 | 创建应用、生成和管理高德 API Key | https://console.amap.com/dev/key/app |
+| ModelScope 魔搭社区 MCP 广场 | 获取高德地图 MCP 服务配置 | https://www.modelscope.cn/mcp/servers/@amap/amap-maps |
+| Claude Code | 项目规划、编码、构建、排错与部署配置 | https://claude.ai/code |
+| Claude Code MCP 官方文档 | 查询 MCP 最新配置命令和作用域说明 | https://code.claude.com/docs/en/mcp |
+| ChatGPT | 需求梳理、UI 设计、阶段提示词、验收和排错 | https://chatgpt.com/ |
+| UI Prompt | 寻找和选择网页 UI 风格 | https://www.uiprompt.site/zh/styles |
+| Git | 本地版本管理和阶段检查点 | https://git-scm.com/ |
+| GitHub | 代码托管 | https://github.com/ |
+| GitHub Actions | 自动构建和部署 | https://github.com/features/actions |
+| GitHub Pages | 静态网站托管 | https://pages.github.com/ |
+| Vite | 项目初始化、开发服务器、生产构建 | https://vite.dev/ |
+| React | 前端 UI 开发 | https://react.dev/ |
+| TypeScript | 前端类型系统 | https://www.typescriptlang.org/ |
+
 ## 项目结构
 
 ```text
