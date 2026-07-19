@@ -1,0 +1,142 @@
+/* InkButton.module.css · 阶段 3 精修 */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  /* 功能按钮使用行书，行书稳重易读 */
+  font-family: var(--font-xing);
+  font-weight: 400;
+  /* 字距略宽提升可读性 */
+  letter-spacing: 0.12em;
+  /* 行高保证实际高度稳定 */
+  line-height: 1.2;
+  color: var(--ink-deep);
+  background-color: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition:
+    color 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    opacity 200ms ease;
+  border-radius: var(--radius-sm);
+  position: relative;
+}
+
+/* sizes · 略微加高，提高点击区 */
+.size-small {
+  font-size: 14px;
+  padding: 8px 18px;
+  min-height: 36px;
+}
+.size-medium {
+  font-size: 16px;
+  padding: 12px 26px;
+  min-height: 44px;
+}
+.size-large {
+  font-size: 18px;
+  padding: 16px 34px;
+  min-height: 52px;
+}
+
+/* primary：朱红印泥色（保留 #C41E3A，hover 略深） */
+.variant-primary {
+  color: var(--paper);
+  background-color: var(--seal-red);
+  border-color: var(--seal-red);
+}
+.variant-primary:hover:not(:disabled) {
+  background-color: #a91730;
+  border-color: #a91730;
+  box-shadow: 0 0 24px rgba(196, 30, 58, 0.18);
+}
+.variant-primary:active:not(:disabled) {
+  background-color: #8c1228;
+}
+
+/* secondary：墨色边框 */
+.variant-secondary {
+  color: var(--ink-burnt);
+  background-color: transparent;
+  border-color: var(--ink-deep);
+}
+.variant-secondary:hover:not(:disabled) {
+  background-color: rgba(26, 26, 26, 0.04);
+  border-color: var(--ink-burnt);
+  box-shadow: 0 0 18px rgba(26, 26, 26, 0.08);
+}
+
+/* ghost：尽量轻盈 */
+.variant-ghost {
+  color: var(--ink-medium);
+  background-color: transparent;
+  border-color: transparent;
+}
+.variant-ghost:hover:not(:disabled) {
+  color: var(--ink-burnt);
+  background-color: rgba(26, 26, 26, 0.03);
+}
+
+/* disabled */
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* loading */
+.loading {
+  cursor: wait;
+}
+
+/* keyboard focus */
+.btn:focus-visible {
+  outline: 2px solid var(--seal-red);
+  outline-offset: 3px;
+}
+
+/* 装饰 */
+.adornment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 文字标签：保证可读 */
+.label {
+  display: inline-block;
+  line-height: 1.2;
+  font-feature-settings: 'palt';
+}
+
+/* 加载圆点（克制，不旋转） */
+.spinner {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0.6;
+  animation: ink-pulse 1200ms ease-in-out infinite;
+}
+
+@keyframes ink-pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    opacity: 0.7;
+  }
+}

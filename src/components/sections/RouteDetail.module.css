@@ -1,0 +1,63 @@
+/* RouteDetail.module.css */
+
+.detail {
+  padding: var(--space-5) 0 var(--space-3) 0;
+}
+
+.days {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.dayHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.dayBadge {
+  font-size: 12px;
+  color: var(--paper);
+  background-color: var(--seal-red);
+  padding: 4px 12px;
+  letter-spacing: 0.16em;
+}
+
+.dayTitle {
+  font-size: 20px;
+  color: var(--ink-burnt);
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+.dayBreak {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) 0;
+  position: relative;
+}
+
+.dayBreakText {
+  font-size: 16px;
+  color: var(--ink-medium);
+  letter-spacing: 0.32em;
+}
+
+@media (max-width: 640px) {
+  .dayBadge {
+    padding: 3px 10px;
+  }
+  .dayTitle {
+    font-size: 18px;
+  }
+}

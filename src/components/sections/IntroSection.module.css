@@ -1,0 +1,111 @@
+/* IntroSection.module.css · 阶段 5 精修 */
+
+.intro {
+  position: relative;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 720px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  color: var(--ink-medium);
+  letter-spacing: 0.32em;
+  margin: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.theme {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.themeReversed .imageCol {
+  order: 2;
+}
+
+.themeReversed .textCol {
+  order: 1;
+}
+
+.imageCol {
+  width: 100%;
+  /* 轻微阴影增强层次 */
+  filter: drop-shadow(0 4px 16px rgba(26, 26, 26, 0.05));
+}
+
+.textCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.number {
+  font-family: var(--font-data);
+  font-size: 13px;
+  color: var(--ink-light);
+  letter-spacing: 0.32em;
+}
+
+.themeTitle {
+  font-size: clamp(40px, 5vw, 52px);
+  color: var(--ink-burnt);
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+}
+
+.themeDesc {
+  font-family: var(--font-body-kai);
+  font-size: 17px;
+  color: var(--ink-deep);
+  margin: 0;
+  letter-spacing: 0.06em;
+  line-height: 1.95;
+  max-width: 40ch;
+}
+
+@media (max-width: 768px) {
+  .intro {
+    padding: var(--space-10) var(--space-4);
+    gap: var(--space-8);
+  }
+  .list {
+    gap: var(--space-8);
+  }
+  .theme,
+  .themeReversed {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  .themeReversed .imageCol {
+    order: 0;
+  }
+  .themeReversed .textCol {
+    order: 0;
+  }
+  .themeTitle {
+    font-size: 34px;
+  }
+  .themeDesc {
+    font-size: 16px;
+  }
+}

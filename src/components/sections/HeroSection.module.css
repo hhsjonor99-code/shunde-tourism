@@ -1,0 +1,182 @@
+/* HeroSection.module.css · 阶段 5 精修 */
+
+.hero {
+  position: relative;
+  min-height: 88vh;
+  background-color: var(--paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 80px;
+  overflow: hidden;
+}
+
+/* ===== 装饰层 ===== */
+.decoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.landscape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation: landscape-in 1200ms ease-out 200ms forwards;
+}
+
+@keyframes landscape-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== 内容层 ===== */
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: var(--space-10) var(--space-8);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-10);
+  width: 100%;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 620px;
+}
+
+.sealSlot {
+  margin-bottom: var(--space-1);
+}
+
+.title {
+  font-size: clamp(64px, 9vw, 112px);
+  font-weight: 400;
+  color: var(--ink-burnt);
+  margin: 0;
+  letter-spacing: 0.08em;
+  line-height: 1.05;
+}
+
+.subtitle {
+  font-size: clamp(22px, 2.6vw, 28px);
+  color: var(--ink-deep);
+  margin: 0;
+  letter-spacing: 0.24em;
+  line-height: 1.4;
+}
+
+.welcome {
+  font-family: var(--font-body-kai);
+  font-size: 17px;
+  color: var(--ink-deep);
+  margin: var(--space-2) 0 0 0;
+  letter-spacing: 0.06em;
+  line-height: 1.95;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  max-width: 540px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-top: var(--space-4);
+}
+
+/* ===== 底部毛笔衔接线 ===== */
+.bottomDivider {
+  position: relative;
+  z-index: 2;
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--space-8) var(--space-6);
+}
+
+/* ===== 响应式 ===== */
+@media (min-width: 1440px) {
+  .text {
+    max-width: 680px;
+  }
+  .welcome {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+  .vertical {
+    flex-direction: row;
+    gap: var(--space-6);
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: auto;
+    padding-top: 64px;
+  }
+  .content {
+    padding: var(--space-8) var(--space-4);
+    gap: var(--space-5);
+  }
+  .title {
+    font-size: 52px;
+  }
+  .subtitle {
+    font-size: 18px;
+    letter-spacing: 0.16em;
+  }
+  .welcome {
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .actions button {
+    width: 100%;
+  }
+  .vertical {
+    flex-direction: row;
+    gap: var(--space-4);
+  }
+  .bottomDivider {
+    padding: 0 var(--space-4) var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landscape {
+    animation: none;
+    opacity: 1;
+  }
+}

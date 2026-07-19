@@ -1,0 +1,16 @@
+/* ============================================================
+   《一卷顺德》全局样式 · 阶段 1 占位
+   - 引入 styles/global.css 提供的 CSS 变量与基础重置
+   - 此文件作为 Vite 入口点（main.tsx 中 import './index.css'）
+   ============================================================ */
+
+@import './styles/global.css';
+@import './styles/ink.css';
+@import './styles/animations.css';
+
+/* 占位：阶段 1 仅显示宣纸白背景与项目标题 */
+#root {
+  min-height: 100vh;
+  background-color: var(--paper);
+  color: var(--ink-deep);
+}

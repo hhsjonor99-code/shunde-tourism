@@ -1,0 +1,31 @@
+/* ============================================================
+   animations.css · 动效规范
+   - 阶段 1：仅占位与减少动效支持
+   - 阶段 7 在此基础上扩展完整动效
+   ============================================================ */
+
+/* ---- 减少动态效果支持 ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.08s !important;
+    transition-duration: 0.08s !important;
+  }
+}
+
+/* ---- 阶段 1 占位：首屏渐入 ---- */
+@keyframes ink-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ink-fade-in {
+  animation: ink-fade-in 1200ms ease-out both;
+}

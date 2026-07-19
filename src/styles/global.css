@@ -1,0 +1,104 @@
+/* ============================================================
+   global.css · 全局重置与 CSS 变量（阶段 5 精修）
+   - 提升基础字号
+   - 调整内容最大宽度
+   ============================================================ */
+
+:root {
+  /* ---- 墨分五色 ---- */
+  --ink-burnt:  #1A1A1A;   /* 焦墨 */
+  --ink-deep:   #333333;   /* 浓墨 */
+  --ink-medium: #666666;   /* 淡墨 */
+  --ink-light:  #999999;   /* 清墨 */
+
+  /* ---- 宣纸 ---- */
+  --paper:       #F8F5F0;  /* 宣纸白（主背景） */
+  --paper-rice:  #FAF0E6;  /* 米色 */
+  --paper-ivory: #FFFFF0;  /* 象牙白 */
+
+  /* ---- 点缀色 ---- */
+  --seal-red:    #C41E3A;  /* 朱红印章 */
+  --mountain:    #2E8B57;  /* 青绿山水 */
+  --gold:        #D4AF37;  /* 金色点缀 */
+
+  /* ---- 圆角（几乎为方） ---- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* ---- 间距 ---- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 48px;
+  --space-10: 64px;
+  --space-12: 96px;
+
+  /* ---- 内容最大宽度 ---- */
+  --content-max: 1180px;
+  --content-narrow: 960px;   /* 窄区块（AboutSection 等） */
+  --content-wide: 1280px;   /* 宽屏留余地 */
+
+  /* ---- 字体回退链 ---- */
+  --font-cao:      'Liu Jian Mao Cao', 'STKaiti', 'KaiTi', cursive;
+  --font-xing:     'Ma Shan Zheng', 'STKaiti', 'KaiTi', cursive;
+  --font-xingcao:  'Zhi Mang Xing', 'STKaiti', 'KaiTi', cursive;
+  --font-body-kai: 'ZCOOL XiaoWei', 'STKaiti', 'KaiTi', 'FangSong', serif;
+  --font-seal:     'ZCOOL KuaiLe', 'STKaiti', cursive;
+  --font-data:     'Noto Serif SC', 'Microsoft YaHei', 'SimSun', serif;
+
+  /* ---- 基础排版 ---- */
+  font-family: var(--font-body-kai);
+  /* 基础字号提升到 16px（满足 16+） */
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-deep);
+  background-color: var(--paper);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- 基础重置 ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--paper);
+  color: var(--ink-deep);
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--ink-deep);
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

@@ -1,0 +1,92 @@
+/* RoutesSection.module.css */
+
+.routes {
+  position: relative;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.eyebrow {
+  font-size: 12px;
+  color: var(--ink-medium);
+  letter-spacing: 0.32em;
+  margin: 0;
+}
+
+.scope {
+  font-size: 12px;
+  color: var(--ink-medium);
+  margin: 0;
+  letter-spacing: 0.04em;
+  padding: var(--space-3) 0 0 0;
+  max-width: 64ch;
+}
+
+/* 主路线列表 */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* 半日小卷分隔 */
+.variantsDivider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) 0;
+  position: relative;
+}
+
+.variantsLabel {
+  font-size: 24px;
+  color: var(--ink-burnt);
+  letter-spacing: 0.32em;
+}
+
+.variantsHint {
+  font-size: 13px;
+  color: var(--ink-medium);
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0.04em;
+  max-width: 56ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.variants {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .variants {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .routes {
+    padding: var(--space-10) var(--space-4);
+    gap: var(--space-6);
+  }
+  .list {
+    gap: var(--space-6);
+  }
+  .variantsLabel {
+    font-size: 20px;
+  }
+}

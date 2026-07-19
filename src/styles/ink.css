@@ -1,0 +1,44 @@
+/* ============================================================
+   ink.css · 水墨风工具类
+   - 阶段 1：仅占位与最小工具类
+   - 阶段 3+ 在此基础上扩展 InkButton / SealStamp 等
+   ============================================================ */
+
+/* ---- 字体工具类 ---- */
+.font-calligraphy-cao {
+  font-family: var(--font-cao);
+}
+.font-calligraphy-xing {
+  font-family: var(--font-xing);
+}
+.font-calligraphy-xingcao {
+  font-family: var(--font-xingcao);
+}
+.font-body-kai {
+  font-family: var(--font-body-kai);
+}
+.font-seal {
+  font-family: var(--font-seal);
+  letter-spacing: 0;
+}
+.font-data {
+  font-family: var(--font-data);
+}
+
+/* ---- 竖排文字 ---- */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* ---- 颜色工具类 ---- */
+.ink-burnt  { color: var(--ink-burnt); }
+.ink-deep   { color: var(--ink-deep); }
+.ink-medium { color: var(--ink-medium); }
+.ink-light  { color: var(--ink-light); }
+.seal-red   { color: var(--seal-red); }
+.mountain   { color: var(--mountain); }
+
+.bg-paper    { background-color: var(--paper); }
+.bg-paper-rice { background-color: var(--paper-rice); }
+.bg-seal-red { background-color: var(--seal-red); }

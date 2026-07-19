@@ -1,0 +1,228 @@
+/* RouteCard.module.css · 阶段 5 精修 */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--paper);
+  border: 1px solid rgba(26, 26, 26, 0.06);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+    0 2px 12px rgba(26, 26, 26, 0.04);
+}
+
+/* 顶部朱红卷轴边（一笔细线） */
+.topEdge {
+  display: block;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(196, 30, 58, 0.45) 20%,
+    rgba(196, 30, 58, 0.45) 80%,
+    transparent
+  );
+  margin: 0;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-7) var(--space-7);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.headLeft {
+  flex: 1 1 360px;
+  min-width: 0;
+}
+
+.seal {
+  flex-shrink: 0;
+}
+
+/* 第一层：核心摘要 + 数据 + 适合人群 */
+.heroRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.desc {
+  font-family: var(--font-body-kai);
+  font-size: 17px;
+  color: var(--ink-deep);
+  margin: 0;
+  letter-spacing: 0.06em;
+  line-height: 1.95;
+}
+
+.heroMeta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+.heroStat {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px dashed rgba(26, 26, 26, 0.10);
+}
+
+.heroStat:last-child {
+  border-bottom: none;
+}
+
+.heroStatLabel {
+  font-family: var(--font-xing);
+  font-size: 13px;
+  color: var(--ink-medium);
+  letter-spacing: 0.12em;
+}
+
+.heroStatValue {
+  font-size: 18px;
+  color: var(--ink-burnt);
+  letter-spacing: 0.04em;
+}
+
+/* 第二层：核心停靠点 */
+.stopsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.stopsLabel {
+  font-size: 12px;
+  color: var(--ink-medium);
+  letter-spacing: 0.24em;
+}
+
+.stopsList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.stopChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-xing);
+  font-size: 17px;
+  color: var(--ink-burnt);
+  letter-spacing: 0.06em;
+}
+
+.stopDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--seal-red);
+  flex-shrink: 0;
+}
+
+.stopName {
+  /* 名字行书更醒目 */
+  letter-spacing: 0.06em;
+}
+
+.stopMore {
+  font-family: var(--font-data);
+  font-size: 13px;
+  color: var(--ink-medium);
+  letter-spacing: 0.04em;
+  margin-left: var(--space-1);
+}
+
+/* 第三层：低优先级技术信息 */
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(26, 26, 26, 0.05);
+}
+
+.metaItem {
+  font-size: 12px;
+  color: var(--ink-light);
+  letter-spacing: 0.06em;
+}
+
+.metaDivider {
+  width: 1px;
+  height: 12px;
+  background-color: rgba(26, 26, 26, 0.18);
+}
+
+/* 操作 */
+.actions {
+  margin-top: var(--space-1);
+}
+
+.detailSlot {
+  /* ScrollReveal 包装 */
+}
+
+.panel {
+  margin-top: var(--space-5);
+  padding: var(--space-5) var(--space-6);
+  background-color: var(--paper-rice);
+  border-left: 2px solid rgba(196, 30, 58, 0.4);
+}
+
+.scopeNotice {
+  font-size: 12px;
+  color: var(--ink-medium);
+  margin: 0 0 var(--space-4) 0;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px dashed rgba(26, 26, 26, 0.12);
+}
+
+@media (max-width: 768px) {
+  .heroRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 640px) {
+  .body {
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-4);
+  }
+  .desc {
+    font-size: 16px;
+  }
+  .heroStat {
+    grid-template-columns: 76px 1fr;
+  }
+  .heroStatValue {
+    font-size: 16px;
+  }
+  .stopChip {
+    font-size: 15px;
+  }
+  .panel {
+    padding: var(--space-4) var(--space-3);
+  }
+}

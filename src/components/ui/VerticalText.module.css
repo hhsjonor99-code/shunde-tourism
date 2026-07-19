@@ -1,0 +1,32 @@
+/* VerticalText.module.css */
+
+.vertical {
+  display: inline-block;
+  font-family: var(--font-xingcao);
+  font-size: 22px;
+  line-height: 1.5;
+  letter-spacing: 0.16em;
+  color: var(--ink-deep);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+  /* 不影响页面横向滚动 */
+  max-width: 100%;
+}
+
+/* 方向 */
+.direction-rtl {
+  /* 默认：writing-mode: vertical-rl 从右到左 */
+}
+
+.direction-ltr {
+  writing-mode: vertical-lr;
+}
+
+/* 手机端字号自动缩小 */
+@media (max-width: 640px) {
+  .vertical {
+    font-size: 18px;
+    letter-spacing: 0.14em;
+  }
+}

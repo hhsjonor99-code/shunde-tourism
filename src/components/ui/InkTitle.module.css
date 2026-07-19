@@ -1,0 +1,86 @@
+/* InkTitle.module.css · 阶段 3 精修 */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+  position: relative;
+  /* 防止竖排文字溢出 */
+  max-width: 100%;
+  overflow: visible;
+}
+
+.align-left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.align-center {
+  align-items: center;
+  text-align: center;
+}
+
+.align-right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.eyebrow {
+  font-family: var(--font-xing);
+  font-size: 13px;
+  color: var(--ink-medium);
+  letter-spacing: 0.24em;
+  display: inline-block;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  /* 增加距离 */
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.title {
+  font-family: var(--font-xing);
+  /* 略微增大 */
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--ink-burnt);
+  margin: 0;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  /* 主标题保留为第一视觉焦点 */
+}
+
+.subtitle {
+  font-family: var(--font-body-kai);
+  font-size: 16px;
+  color: var(--ink-medium);
+  margin: 0;
+  letter-spacing: 0.08em;
+  /* 限制宽度避免被竖排文字切到 */
+  max-width: 56ch;
+  line-height: 1.6;
+}
+
+.vertical {
+  /* 竖排文字作为辅助视觉 */
+  font-size: 20px;
+  margin-left: var(--space-3);
+  opacity: 0.78;
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 28px;
+  }
+  .titleRow {
+    gap: var(--space-3);
+  }
+  .vertical {
+    font-size: 16px;
+  }
+}

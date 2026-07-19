@@ -1,0 +1,29 @@
+/* BrushDivider.module.css */
+
+.divider {
+  display: block;
+  position: relative;
+  margin: 0;
+  pointer-events: none;
+}
+
+.divider svg {
+  display: block;
+}
+
+/* 毛笔书写动画：keyframe 必须全局，否则 inline style 引用会被 CSS Modules 重命名 */
+:global(@keyframes brush-draw) {
+  from {
+    stroke-dashoffset: var(--brush-length, 240);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .divider svg path {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}

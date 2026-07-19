@@ -1,0 +1,298 @@
+/* ItineraryResult.module.css */
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-7);
+  background-color: var(--paper);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+    0 2px 12px rgba(26, 26, 26, 0.04);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.headLeft {
+  flex: 1 1 360px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.eyebrow {
+  font-size: 12px;
+  color: var(--ink-medium);
+  letter-spacing: 0.32em;
+  margin: 0;
+}
+
+.title {
+  font-size: clamp(28px, 3.6vw, 36px);
+  color: var(--ink-burnt);
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+}
+
+.summary {
+  font-size: 15px;
+  color: var(--ink-deep);
+  margin: 0;
+  letter-spacing: 0.06em;
+  line-height: 1.85;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.seal {
+  flex-shrink: 0;
+}
+
+/* ===== 数据网格 ===== */
+
+.dataGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+  border-top: 1px solid rgba(26, 26, 26, 0.06);
+  border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+}
+
+.dataItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.dataLabel {
+  font-family: var(--font-xing);
+  font-size: 12px;
+  color: var(--ink-medium);
+  letter-spacing: 0.12em;
+}
+
+.dataValue {
+  font-size: 18px;
+  color: var(--ink-burnt);
+  letter-spacing: 0.04em;
+}
+
+/* ===== 核心停靠 ===== */
+
+.stopsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.subLabel {
+  font-size: 12px;
+  color: var(--ink-medium);
+  letter-spacing: 0.24em;
+}
+
+.stopsList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.stopChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-xing);
+  font-size: 17px;
+  color: var(--ink-burnt);
+  letter-spacing: 0.06em;
+}
+
+.stopDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--seal-red);
+  flex-shrink: 0;
+}
+
+.stopName {
+  letter-spacing: 0.06em;
+}
+
+/* ===== 推荐理由 ===== */
+
+.reasons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.subhead {
+  font-size: 15px;
+  color: var(--ink-burnt);
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.12em;
+}
+
+.reasonList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reasonItem {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: var(--space-2);
+  font-family: var(--font-body-kai);
+  font-size: 15px;
+  color: var(--ink-deep);
+  letter-spacing: 0.04em;
+  line-height: 1.85;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.reasonMark {
+  color: var(--seal-red);
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+/* ===== 关键词 ===== */
+
+.keywords {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background-color: rgba(26, 26, 26, 0.025);
+  border-left: 2px solid var(--ink-burnt);
+}
+
+.kwNote {
+  font-size: 12px;
+  color: var(--ink-light);
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+.kwList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kwItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body-kai);
+  font-size: 14px;
+  color: var(--ink-deep);
+  letter-spacing: 0.04em;
+}
+
+.kwEffect {
+  position: relative;
+  padding-left: 14px;
+}
+
+.kwEffect::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--seal-red);
+  transform: translateY(-50%);
+}
+
+.kwUnmatched {
+  font-size: 12px;
+  color: var(--ink-medium);
+  margin: var(--space-2) 0 0 0;
+  padding: var(--space-3);
+  background-color: rgba(196, 30, 58, 0.05);
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+}
+
+/* ===== 告示 ===== */
+
+.notices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.notice {
+  font-family: var(--font-body-kai);
+  font-size: 13px;
+  color: var(--ink-medium);
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  background-color: rgba(26, 26, 26, 0.04);
+  border-left: 2px solid var(--ink-burnt);
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+}
+
+/* ===== 时间轴 ===== */
+
+.timelineSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ===== 操作 ===== */
+
+.actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .result {
+    padding: var(--space-5) var(--space-4);
+  }
+  .title {
+    font-size: 24px;
+  }
+  .dataValue {
+    font-size: 16px;
+  }
+  .stopChip {
+    font-size: 15px;
+  }
+  .actions {
+    justify-content: stretch;
+  }
+  .actions button {
+    width: 100%;
+  }
+}

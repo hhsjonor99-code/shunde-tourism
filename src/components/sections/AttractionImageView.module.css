@@ -1,0 +1,81 @@
+/* AttractionImageView.module.css */
+
+.figure {
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--paper-rice);
+  box-shadow:
+    inset 0 0 0 1px rgba(26, 26, 26, 0.06),
+    0 1px 3px rgba(26, 26, 26, 0.04);
+}
+
+.mask {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  filter: saturate(0.7) contrast(0.96);
+  transition: filter 320ms ease;
+}
+
+.figure:hover .img {
+  filter: saturate(0.92) contrast(1);
+}
+
+.fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.fallback svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 边缘墨迹遮罩：CSS mask */
+.edgeMask {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 60%,
+      rgba(248, 245, 240, 0.18) 100%
+    );
+  mix-blend-mode: multiply;
+}
+
+/* 版权 / 来源 */
+.credit {
+  position: absolute;
+  right: var(--space-2);
+  bottom: var(--space-2);
+  font-family: var(--font-data);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 2px 6px;
+  margin: 0;
+  letter-spacing: 0.04em;
+  z-index: 4;
+}
